@@ -5,25 +5,31 @@ import java.security.SecureRandom;
 import fr.lernejo.logger.Logger;
 import fr.lernejo.logger.LoggerFactory;
 import java.security.SecureRandom;
-import java.util.regex.Pattern;
 
 public class Launcher {
     private static final Logger logger = LoggerFactory.getLogger("launcher");
 
     public static void main(String[] args) {
         Simulation simulation;
-        Simulation sim = null;
-        if(args[0].equals("-interactive")){
-            sim = new Simulation(new HumanPlayer());
-            sim.initialize(new SecureRandom().nextInt(100));
-            sim.loopUntilPlayerSucceed(Long.MAX_VALUE);
-        }else if(args[0].equals("-auto") && Pattern.compile("-?\\d+(\\.\\d+)?").matcher(args[1]).matches()){
-            sim = new Simulation(new ComputerPlayer(Long.parseLong(args[1])));
-            sim.initialize(new SecureRandom().nextLong(Long.parseLong(args[1])));
-            sim.loopUntilPlayerSucceed(1000);
-        }else{
-            System.out.println("Pour  interactive, taper -interactive.\n" +
-                "Pour  auto, taper -auto <max_value>");
+        if (args.length == 1 && args[0].equals("-interactive")) {
+
+            HumanPlayer humanPlayer = new HumanPlayer();
+            simulation = new Simulation(humanPlayer);
+            SecureRandom random = new SecureRandom();
+            long randomNumber = random.nextInt(100);
+            simulation.initialize(randomNumber);
+            simulation.loopUntilPlayerSucceed(Long.MAX_VALUE);
+
+        } else if (args.length == 2 && args[0].equals("-auto") && args[1].matches("\\d+")) {
+            ComputerPlayer computerPlayer = new ComputerPlayer();
+            simulation = new Simulation(computerPlayer);
+            long number = Long.parseLong(args[1]);
+            simulation.initialize(number);
+            simulation.loopUntilPlayerSucceed(1000);
+        } else {
+            logger.log("You have two choice: if you want to player with one human you must to choose -interactive ");
+            logger.log("Or if you want to player with one computer you must to choose -auto and second parameter have to be a number ");
         }
+
     }
 }
