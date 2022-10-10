@@ -11,25 +11,25 @@ public class Launcher {
 
     public static void main(String[] args) {
         Simulation simulation;
-        if (args.length == 1 && args[0].equals("-interactive")) {
 
+        if (args.length == 1 && args[0].equals("-interactive")) {
             HumanPlayer humanPlayer = new HumanPlayer();
             simulation = new Simulation(humanPlayer);
             SecureRandom random = new SecureRandom();
             long randomNumber = random.nextInt(100);
             simulation.initialize(randomNumber);
             simulation.loopUntilPlayerSucceed(Long.MAX_VALUE);
-
-        } else if (args.length == 2 && args[0].equals("-auto") && args[1].matches("\\d+")) {
+        }
+        else if (args.length == 2 && args[0].equals("-auto") && args[1].matches("\\d+")) {
             ComputerPlayer computerPlayer = new ComputerPlayer();
             simulation = new Simulation(computerPlayer);
             long number = Long.parseLong(args[1]);
             simulation.initialize(number);
             simulation.loopUntilPlayerSucceed(1000);
-        } else {
-            logger.log("You have two choice: if you want to player with one human you must to choose -interactive ");
-            logger.log("Or if you want to player with one computer you must to choose -auto and second parameter have to be a number ");
         }
-
+        else {
+            logger.log("Vous avez deux chois: si vous voulez jouer avec un humain vous devez choisir -interactive ");
+            logger.log("Ou si vous voulez jouer avec un ordinateur vous devez choisir -auto et le deuxième paramétre doit être un numéro ");
+        }
     }
 }

@@ -17,9 +17,9 @@ public class ComputerPlayer  implements Player{
     @Override
     public void respond(boolean lowerOrGreater) {
         if (lowerOrGreater)
-            logger.log("The entered number is lower than the number");
+            logger.log("le numéro entré est plus petit");
         else
-            logger.log("the entered number is greater than the number");
+            logger.log("le numéro entré est plus grand");
     }
 }
 
