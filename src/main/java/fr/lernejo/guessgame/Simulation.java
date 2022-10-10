@@ -40,7 +40,7 @@ public class Simulation {
             //TODO implement me
             do {
                 nextRound();
-            } while (nextRound() == true);
+            } while (nextRound() == false);
         }
     }
 
